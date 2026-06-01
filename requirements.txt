@@ -1,0 +1,17 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+langgraph==0.2.39
+langchain==0.3.7
+langchain-openai==0.2.10
+streamlit==1.39.0
+pydantic==2.9.2
+python-dotenv==1.0.1
+faiss-cpu==1.8.0.post1
+openai>=1.54,<2
+pypdf==5.1.0
+python-multipart==0.0.12
+pinecone-client==5.0.1
+
+# Optional for production observability
+structlog==24.4.0
+prometheus-client==0.21.0

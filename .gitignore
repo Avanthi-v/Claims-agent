@@ -1,0 +1,9 @@
+.env
+
+#vitrual environment
+.venv/
+.venv
+venv/
+
+#In memory db
+claims_system.db
