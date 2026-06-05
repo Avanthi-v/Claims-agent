@@ -5,8 +5,10 @@ from typing_extensions import Annotated
 
 from langchain_core.messages import BaseMessage, HumanMessage
 from langchain_core.runnables import RunnableConfig
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import END, StateGraph
+
+import sqlite3
 
 from backend.tools.claims_tools import assess_underwriting_risk, verify_member_api
 
@@ -118,8 +120,9 @@ builder.add_conditional_edges("human_review", route_after_human_decision)
 
 builder.set_finish_point("settlement_processing")
 
-checkpointer = MemorySaver()
-app_graph = builder.compile(checkpointer=checkpointer, interrupt_before=["human_review"])
+connection = sqlite3.connect("claims_system.db", check_same_thread=False)
+memory = SqliteSaver(connection)
+app_graph = builder.compile(checkpointer=memory, interrupt_before=["human_review"])
 
 
 if __name__ == "__main__":
